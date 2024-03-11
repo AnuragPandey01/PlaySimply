@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,7 +22,11 @@ import com.example.smplplayer.data.MusicItem
 import com.example.smplplayer.util.formatDuration
 
 @Composable
-fun MusicListItem(musicItem: MusicItem, onClick: () -> Unit) {
+fun MusicListItem(
+    musicItem: MusicItem,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,17 +51,20 @@ fun MusicListItem(musicItem: MusicItem, onClick: () -> Unit) {
         ) {
             Text(
                 text = musicItem.title,
-                style = MaterialTheme.typography.titleSmall
+                style = MaterialTheme.typography.titleSmall,
+                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
             )
             Text(
                 text = musicItem.artist,
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
+                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
             )
         }
         Text(
             text = musicItem.duration.formatDuration(),
             style = MaterialTheme.typography.bodySmall,
-            textAlign = TextAlign.End
+            textAlign = TextAlign.End,
+            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
         )
     }
 }

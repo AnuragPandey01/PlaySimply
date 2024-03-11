@@ -5,11 +5,11 @@ import android.content.ContentResolver
 import android.content.ContentUris
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
+import androidx.compose.runtime.Stable
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
-import androidx.media3.common.MimeTypes
 
+@Stable
 data class MusicItem(
     val id: Long,
     val title: String,
@@ -24,9 +24,11 @@ data class MusicItem(
             .setMediaId(id.toString())
             .setMediaMetadata(
                 MediaMetadata.Builder()
-                .setTitle(title)
-                .setArtist(artist)
-                .build())
+                    .setTitle(title)
+                    .setArtist(artist)
+                    .setArtworkUri(albumArt)
+                    .build()
+            )
             .build()
     }
 }
@@ -79,6 +81,4 @@ fun ContentResolver.getMusicList():List<MusicItem>{
     }
     return list
 }
-
-private const val TAG = "MusicLog"
 

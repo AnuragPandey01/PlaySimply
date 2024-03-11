@@ -15,10 +15,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -37,6 +33,7 @@ fun CurrentPlayingDock(
     currentPlaying: MusicItem,
     onNextClick : () -> Unit,
     onPlayPauseClick : () -> Unit,
+    isPlaying: Boolean,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -64,21 +61,16 @@ fun CurrentPlayingDock(
             Text(text = currentPlaying.artist, style = MaterialTheme.typography.bodySmall)
         }
 
-        var isPlaying by remember{
-            mutableStateOf(false)
-        }
-
         // Play/Pause button
         IconButton(
             onClick = {
-                isPlaying = !isPlaying
                 onPlayPauseClick()
             }
         ) {
             Icon(
                 imageVector =
-                if(isPlaying) ImageVector.vectorResource(R.drawable.ic_play)
-                else ImageVector.vectorResource(R.drawable.ic_pause), contentDescription = null
+                if(isPlaying) ImageVector.vectorResource(R.drawable.ic_pause)
+                else ImageVector.vectorResource(R.drawable.ic_play), contentDescription = null
             )
         }
 

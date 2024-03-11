@@ -27,12 +27,13 @@ class MainViewModel: ViewModel() {
 
     private val _currentMusicItem = MutableLiveData<MusicItem?>(null)
     val currentMusicItem: LiveData<MusicItem?> = _currentMusicItem
-
-    fun setCurrentMusicItem(value: MusicItem){
-        _currentMusicItem.value = value
+    fun setCurrentMusicItemByMediaId(mediaId: String){
+        _currentMusicItem.value = _musicList.value?.find { it.id.toString() == mediaId }
     }
 
-    fun setCurrentMusicItemByIndex(index: Int){
-        _currentMusicItem.value = _musicList.value?.get(index)
+    private val _isPlaying = MutableLiveData(false)
+    val isPlaying: LiveData<Boolean> = _isPlaying
+    fun setIsPlaying(value: Boolean){
+        _isPlaying.value = value
     }
 }
